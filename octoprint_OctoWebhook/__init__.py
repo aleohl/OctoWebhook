@@ -412,7 +412,7 @@ class OctoWebhookPlugin(octoprint.plugin.SettingsPlugin,
 
 	def get_assets(self):
 		return dict(
-			js=["js/Octoslack.js"],
+			js=["js/OctoWebhook.js"],
 			css=["css/Octoslack.css"],
 			less=["less/Octoslack.less"]
 		)

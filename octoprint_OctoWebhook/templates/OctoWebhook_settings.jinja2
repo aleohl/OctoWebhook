@@ -1,21 +1,21 @@
 <form class="form-horizontal">
-    <h2>Octoslack</h2>
-    <div class="octoslack_config_group">
+    <h2>octowebhook</h2>
+    <div class="octowebhook_config_group">
 	<div class="octoprint_config_row">
-            <input type="checkbox" class="octoslack_valign" id="octoslack_include_raspi_temp" data-bind="checked: settings.plugins.OctoWebhook.include_raspi_temp">
-            <div class="octoslack_label octoslack_action_label" onclick="$('#octoslack_include_raspi_temp').trigger('click')">Include RasPi temp</div>
+            <input type="checkbox" class="octowebhook_valign" id="octowebhook_include_raspi_temp" data-bind="checked: settings.plugins.OctoWebhook.include_raspi_temp">
+            <div class="octowebhook_label octowebhook_action_label" onclick="$('#octowebhook_include_raspi_temp').trigger('click')">Include RasPi temp</div>
 	    <br/>
 	    <small class="muted">Include the Raspberry Pi temperature alongside printer temperatures</small>
 	</div>
 	<div class="octoprint_config_row">
-            <div class="octoslack_label">Time format</div>
-	    <select data-bind="value: settings.plugins.OctoWebhook.time_format" class="octoslack_select">
+            <div class="octowebhook_label">Time format</div>
+	    <select data-bind="value: settings.plugins.OctoWebhook.time_format" class="octowebhook_select">
                 <option value="HUMAN">Human exact</option>
                 <option value="FUZZY">Human fuzzy</option>
                 <option value="EXACT">Compact exact</option>
             </select>
 	    <br/>
-	    <p class="octoslack_indented">
+	    <p class="octowebhook_indented">
 	        <small class="muted">
 	    	    <strong>Human exact</strong> - "H hours, M minutes, S seconds"
 	            <br/>
@@ -26,8 +26,8 @@
 	    </p>
 	</div>
 	<div class="octoprint_config_row">
-            <input type="checkbox" class="octoslack_valign" id="octoslack_ignore_cancel_fail_event" data-bind="checked: settings.plugins.OctoWebhook.ignore_cancel_fail_event">
-            <div class="octoslack_label octoslack_action_label" onclick="$('#octoslack_ignore_cancel_fail_event').trigger('click')">Ignore failed event for cancelled prints</div>
+            <input type="checkbox" class="octowebhook_valign" id="octowebhook_ignore_cancel_fail_event" data-bind="checked: settings.plugins.OctoWebhook.ignore_cancel_fail_event">
+            <div class="octowebhook_label octowebhook_action_label" onclick="$('#octowebhook_ignore_cancel_fail_event').trigger('click')">Ignore failed event for cancelled prints</div>
 	    <br/>
 	    <small class="muted">
                 <br/>
@@ -35,8 +35,8 @@
             </small>
 	</div>
 	<div class="octoprint_config_row">
-            <input type="checkbox" class="octoslack_valign" id="octoslack_mattermost_compatabilty_mode" onclick="Octoslack.applyMattermostChanges();" data-bind="checked: settings.plugins.OctoWebhook.mattermost_compatability_mode">
-            <div class="octoslack_label octoslack_action_label" onclick="$('#octoslack_mattermost_compatabilty_mode').trigger('click')">Mattermost compatability</div>
+            <input type="checkbox" class="octowebhook_valign" id="octowebhook_mattermost_compatabilty_mode" onclick="octowebhook.applyMattermostChanges();" data-bind="checked: settings.plugins.OctoWebhook.mattermost_compatability_mode">
+            <div class="octowebhook_label octowebhook_action_label" onclick="$('#octowebhook_mattermost_compatabilty_mode').trigger('click')">Mattermost compatability</div>
 	    <br/>
 	    <small class="muted">
 		While Mattermost provides a Slack compatible Webhook, there are a few differences that need to be accounted for. Enabling this mode will limit this config dialog to only the Mattermost compatible options and will also allow the plugin to make formatting changes as necessary.
@@ -47,23 +47,23 @@
     </div>
     <br/>
     <h2>Slack configuration</h2>
-    <div class="octoslack_config_group">
+    <div class="octowebhook_config_group">
         <h3>Slack connection</h3>
-	<input type="hidden" id="octoslack_connection_method_hidden" data-bind="value: settings.plugins.OctoWebhook.connection_method">
+	<input type="hidden" id="octowebhook_connection_method_hidden" data-bind="value: settings.plugins.OctoWebhook.connection_method">
         <div>
-            <input type="radio" name="octoslack_connection_type" id="octoslack_connection_type_apitoken" onclick="Octoslack.changeConnectionType(this.value);" class="octoslack_valign" value="APITOKEN">
-            <span class="octoslack_valign octoslack_action_label" onclick="$('#octoslack_connection_type_apitoken').trigger('click')">Slack API Token</span>
+            <input type="radio" name="octowebhook_connection_type" id="octowebhook_connection_type_apitoken" onclick="octowebhook.changeConnectionType(this.value);" class="octowebhook_valign" value="APITOKEN">
+            <span class="octowebhook_valign octowebhook_action_label" onclick="$('#octowebhook_connection_type_apitoken').trigger('click')">Slack API Token</span>
         </div>
         <div>
-            <input type="radio" name="octoslack_connection_type" id="octoslack_connection_type_webhook" onclick="Octoslack.changeConnectionType(this.value);" class="octoslack_valign" value="WEBHOOK">
-            <span class="octoslack_valign octoslack_action_label" onclick="$('#octoslack_connection_type_webhook').trigger('click')">Slack WebHook URL</span>
+            <input type="radio" name="octowebhook_connection_type" id="octowebhook_connection_type_webhook" onclick="octowebhook.changeConnectionType(this.value);" class="octowebhook_valign" value="WEBHOOK">
+            <span class="octowebhook_valign octowebhook_action_label" onclick="$('#octowebhook_connection_type_webhook').trigger('click')">Slack WebHook URL</span>
         </div>
 	<small class="muted">Most features will be available for both connection methods but some may specifically require use of the API Token</small>
-        <div id="octoslack_apitoken_group" class="octoslack_hidden">
+        <div id="octowebhook_apitoken_group" class="octowebhook_hidden">
             <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">API Token</span>
-                <input type="text" class="octoslack_width_auto" id="octoslack_apitoken" size="60" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.api_token">
+                <span class="octowebhook_label">API Token</span>
+                <input type="text" class="octowebhook_width_auto" id="octowebhook_apitoken" size="60" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.api_token">
 		</br>
 		<small class="muted">
                     An API Token can be generated via your Slack team's settings dialog.
@@ -74,8 +74,8 @@
                 </small>
             </div>
 	    <div class="octoprint_config_row">
-                <input type="checkbox" class="octoslack_valign" id="octoslack_bot_commands" data-bind="checked: settings.plugins.OctoWebhook.slack_apitoken_config.enable_commands">
-                <div class="octoslack_label octoslack_action_label" onclick="$('#octoslack_bot_commands').trigger('click')">Listen for commands</div>
+                <input type="checkbox" class="octowebhook_valign" id="octowebhook_bot_commands" data-bind="checked: settings.plugins.OctoWebhook.slack_apitoken_config.enable_commands">
+                <div class="octowebhook_label octowebhook_action_label" onclick="$('#octowebhook_bot_commands').trigger('click')">Listen for commands</div>
 	        <br/>
 	        <small class="muted">
 			The API Token allows for bi-directional communication between client and server meaning this plugin can receive and react to messages.
@@ -90,7 +90,7 @@
 			<br/>
 			(where @botname must match the bot name configured in Slack and as opposed to the Username configured for this plugin)
 			<br/>
-			<p class="octoslack_indented">
+			<p class="octowebhook_indented">
 				The supported commands are:
 				<br/>
 				<strong>help</strong> - Displays this list of commands
@@ -107,37 +107,37 @@
 		</small>
 	    </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Confirmation emoji</span>
-                <input type="text" class="octoslack_width_auto" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.commands_positive_reaction">
+                <span class="octowebhook_label">Confirmation emoji</span>
+                <input type="text" class="octowebhook_width_auto" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.commands_positive_reaction">
                 <br/>
 		<small class="muted">If commands are enabled, this emoji is added as a reaction to valid commands</small>
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Processing emoji</span>
-                <input type="text" class="octoslack_width_auto" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.commands_processing_reaction">
+                <span class="octowebhook_label">Processing emoji</span>
+                <input type="text" class="octowebhook_width_auto" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.commands_processing_reaction">
                 <br/>
 		<small class="muted">If commands are enabled, this emoji is added as a reaction before the actual command is executed to give the user some initial feedback while a potentially long running command is executing (e.g. capturing, processing, and uploading a snapshot)</small>
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Failure emoji</span>
-                <input type="text" class="octoslack_width_auto" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.commands_negative_reaction">
+                <span class="octowebhook_label">Failure emoji</span>
+                <input type="text" class="octowebhook_width_auto" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_apitoken_config.commands_negative_reaction">
                 <br/>
 		<small class="muted">If commands are enabled, this emoji is added to invalid commands as well as valid commands that cannot be executed (e.g. <strong>pause</strong> is called on an already paused print)</small>
             </div>
         </div>
-        <div id="octolack_webhook_group" class="octoslack_hidden">
+        <div id="octolack_webhook_group" class="octowebhook_hidden">
             <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">WebHook URL</span>
-                <input type="text" class="octoslack_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.slack_webhook_config.webhook_url">
+                <span class="octowebhook_label">WebHook URL</span>
+                <input type="text" class="octowebhook_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.slack_webhook_config.webhook_url">
 		</br>
 		<small class="muted">A WebHook URL can be generated via your Slack team's settings dialog. Apps &amp; integrations --&gt; Manage --&gt; Custom Integrations --&gt; Incoming WebHooks</small>
             </div>
         </div>
         <h3>Slack channel(s)</h3>
         <div class="octoprint_config_row">
-            <div class="octoslack_label">Channel(s)</div>
-            <input type="text" class="octoslack_width_auto" size="60" id="octoslack_channel" data-bind="value: settings.plugins.OctoWebhook.channel">
+            <div class="octowebhook_label">Channel(s)</div>
+            <input type="text" class="octowebhook_width_auto" size="60" id="octowebhook_channel" data-bind="value: settings.plugins.OctoWebhook.channel">
 	    <br/>
 	    <small class="muted">
                 A single channel can be specified or multiple channels can provided via a comma-separated list (channel1,channel2,channel3)
@@ -147,68 +147,68 @@
         </div>
         <h3>Slack identity</h3>
         <div class="octoprint_config_row">
-            <input type="checkbox" id="octoslack_slack_identity_check" onClick="Octoslack.toggleUseSlackIdentity(this);" class="octoslack_valign" data-bind="checked: settings.plugins.OctoWebhook.slack_identity.existing_user">
-            <div class="octoslack_label octoslack_action_label" onclick="$('#octoslack_slack_identity_check').trigger('click')">Use Slack identity</div>
+            <input type="checkbox" id="octowebhook_slack_identity_check" onClick="octowebhook.toggleUseSlackIdentity(this);" class="octowebhook_valign" data-bind="checked: settings.plugins.OctoWebhook.slack_identity.existing_user">
+            <div class="octowebhook_label octowebhook_action_label" onclick="$('#octowebhook_slack_identity_check').trigger('click')">Use Slack identity</div>
 	    <br/>
-	    <small class="muted">When checked, Octoslack will Use the name/icon defined for the Bot/WebHook. When unchecked, a custom name and icon can be specified</small>
+	    <small class="muted">When checked, octowebhook will Use the name/icon defined for the Bot/WebHook. When unchecked, a custom name and icon can be specified</small>
         </div>
-        <div id="octoslack_custom_identity_group" class="octoslack_hidden">
+        <div id="octowebhook_custom_identity_group" class="octowebhook_hidden">
             <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Username</span>
-                <input type="text" class="octoslack_width_auto" size="25" data-bind="value: settings.plugins.OctoWebhook.slack_identity.username">
+                <span class="octowebhook_label">Username</span>
+                <input type="text" class="octowebhook_width_auto" size="25" data-bind="value: settings.plugins.OctoWebhook.slack_identity.username">
                 <br/>
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Icon emoji</span>
-                <input type="text" class="octoslack_width_auto" id="octoslack_custom_identity_icon_emoji" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_identity.icon_emoji">
+                <span class="octowebhook_label">Icon emoji</span>
+                <input type="text" class="octowebhook_width_auto" id="octowebhook_custom_identity_icon_emoji" size="15" data-bind="value: settings.plugins.OctoWebhook.slack_identity.icon_emoji">
                 <br/>
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Icon URL</span>
-                <input type="text" class="octoslack_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.slack_identity.icon_url">
+                <span class="octowebhook_label">Icon URL</span>
+                <input type="text" class="octowebhook_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.slack_identity.icon_url">
                 <br/>
             </div>
         </div>
     </div>
     <br/>
     <h2>Snapshots</h2>
-    <div class="octoslack_config_group">
+    <div class="octowebhook_config_group">
         <h3>Snapshot hosting</h3>
-	<input type="hidden" id="octoslack_upload_method_hidden" data-bind="value: settings.plugins.OctoWebhook.snapshot_upload_method">
+	<input type="hidden" id="octowebhook_upload_method_hidden" data-bind="value: settings.plugins.OctoWebhook.snapshot_upload_method">
         <div>
-            <input type="radio" name="octoslackSnapshotUploadMethod" id="octoslackSnapshotUploadMethod_none"  onclick="Octoslack.changeSnapshotUploadMethod(this);" class="octoslack_valign" value="NONE">
-            <span class="octoslack_valign octoslack_action_label" onclick="$('#octoslackSnapshotUploadMethod_none').trigger('click')">None</span>
+            <input type="radio" name="octowebhookSnapshotUploadMethod" id="octowebhookSnapshotUploadMethod_none"  onclick="octowebhook.changeSnapshotUploadMethod(this);" class="octowebhook_valign" value="NONE">
+            <span class="octowebhook_valign octowebhook_action_label" onclick="$('#octowebhookSnapshotUploadMethod_none').trigger('click')">None</span>
 	    <br/>
 	    <small class="muted">Unfortunately cleanly attaching images to Slack messages requires an external hosting service. If no this option is specified, snapshots will be unavailable</small>
         </div>
         <div>
-            <input type="radio" name="octoslackSnapshotUploadMethod" id="octoslackSnapshotUploadMethod_imgur" onclick="Octoslack.changeSnapshotUploadMethod(this);" class="octoslack_valign" value="IMGUR">
-            <span class="octoslack_valign octoslack_action_label" onclick="$('#octoslackSnapshotUploadMethod_imgur').trigger('click')">Imgur</span>
+            <input type="radio" name="octowebhookSnapshotUploadMethod" id="octowebhookSnapshotUploadMethod_imgur" onclick="octowebhook.changeSnapshotUploadMethod(this);" class="octowebhook_valign" value="IMGUR">
+            <span class="octowebhook_valign octowebhook_action_label" onclick="$('#octowebhookSnapshotUploadMethod_imgur').trigger('click')">Imgur</span>
 	    <br/>
 	    <small class="muted">Leverage free Imgur hosting - sign up for an account at <a href="http://imgur.com" target="_blank">imgur.com</a></small>
         </div>
         <div>
-            <input type="radio" name="octoslackSnapshotUploadMethod" id="octoslackSnapshotUploadMethod_s3" onclick="Octoslack.changeSnapshotUploadMethod(this);" class="octoslack_valign" value="S3">
-            <span class="octoslack_valign octoslack_action_label" onclick="$('#octoslackSnapshotUploadMethod_s3').trigger('click')">Amazon S3</span>
+            <input type="radio" name="octowebhookSnapshotUploadMethod" id="octowebhookSnapshotUploadMethod_s3" onclick="octowebhook.changeSnapshotUploadMethod(this);" class="octowebhook_valign" value="S3">
+            <span class="octowebhook_valign octowebhook_action_label" onclick="$('#octowebhookSnapshotUploadMethod_s3').trigger('click')">Amazon S3</span>
 	    <br/>
 	    <small class="muted">Leverage Amazon S3 (eventually will incur a cost) at  <a href="https://aws.amazon.com/free" target="_blank">https://aws.amazon.com/free</a></small>
         </div>
         <div>
-            <input type="radio" name="octoslackSnapshotUploadMethod" id="octoslackSnapshotUploadMethod_minio" onclick="Octoslack.changeSnapshotUploadMethod(this);" class="octoslack_valign" value="MINIO">
-            <span class="octoslack_valign octoslack_action_label" onclick="$('#octoslackSnapshotUploadMethod_minio').trigger('click')">Minio S3</span>
+            <input type="radio" name="octowebhookSnapshotUploadMethod" id="octowebhookSnapshotUploadMethod_minio" onclick="octowebhook.changeSnapshotUploadMethod(this);" class="octowebhook_valign" value="MINIO">
+            <span class="octowebhook_valign octowebhook_action_label" onclick="$('#octowebhookSnapshotUploadMethod_minio').trigger('click')">Minio S3</span>
 	    <br/>
 	    <small class="muted">Leverage Minio S3 compatible self hostable storage (see <a href="https://minio.io" target="_blank">Minio.io</a>)</small>
         </div>
-        <div id="octoslack_imgur_group" class="octoslack_hidden">
+        <div id="octowebhook_imgur_group" class="octowebhook_hidden">
             <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Imgur Client ID</span>
-                <input type="text" id="octoslack_imgur_client_id" class="octoslack_width_auto" size="20" onchange="Octoslack.changeImgurClientID();" data-bind="value: settings.plugins.OctoWebhook.imgur_config.client_id">
+                <span class="octowebhook_label">Imgur Client ID</span>
+                <input type="text" id="octowebhook_imgur_client_id" class="octowebhook_width_auto" size="20" onchange="octowebhook.changeImgurClientID();" data-bind="value: settings.plugins.OctoWebhook.imgur_config.client_id">
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Imgur Client Secret</span>
-                <input type="text" class="octoslack_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.imgur_config.client_secret">
+                <span class="octowebhook_label">Imgur Client Secret</span>
+                <input type="text" class="octowebhook_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.imgur_config.client_secret">
             </div>
 	    <small class="muted">
                 Create a Imgur application via <a href="https://api.imgur.com/oauth2/addclient" target="_blank">https://api.imgur.com/oauth2/addclient</a>
@@ -217,8 +217,8 @@
             </small>
             <div class="octoprint_config_row">
                 <br/>
-                <span class="octoslack_label">Imgur Refresh Token</span>
-                <input type="text" id="octoslack_imgur_refresh_token" class="octoslack_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.imgur_config.refresh_token">
+                <span class="octowebhook_label">Imgur Refresh Token</span>
+                <input type="text" id="octowebhook_imgur_refresh_token" class="octowebhook_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.imgur_config.refresh_token">
             </div>
 	    <small class="muted">
                 The refresh token is made available once this application has been authorized. Because this integration isn't via a publically accessible web site/service, we'll need to manually copy/paste the refresh_token provided by the authorization page to this configuration screen.
@@ -226,7 +226,7 @@
                 <br/>
                 Example browser URL after application approval:
                 <br/>
-                https://imgur.com/#access_token=xyz&token_type=bearer&amp;<strong>refresh_token=<span class="octoslack_highlight">abc123</span></strong>&amp;account_username=xyz
+                https://imgur.com/#access_token=xyz&token_type=bearer&amp;<strong>refresh_token=<span class="octowebhook_highlight">abc123</span></strong>&amp;account_username=xyz
                 <br/>
                 <br/>
                 Optionally you can also just paste the entire URL (with the refresh_token argument) into the field above and the plugin will extract what it needs automatically
@@ -234,12 +234,12 @@
                 <br/>
             </small>
 	    <div class="muted">
-                Once you've provided the Imgur Client ID above, click <a href="#" id="octoslack_imgur_auth_link">here</a> to approve this application and generate the needed refresh_token
+                Once you've provided the Imgur Client ID above, click <a href="#" id="octowebhook_imgur_auth_link">here</a> to approve this application and generate the needed refresh_token
             </div>
             <div class="octoprint_config_row">
                 <br/>
-                <span class="octoslack_label">Imgur Album ID</span>
-                <input type="text" id="octoslack_imgur_album_id" class="octoslack_width_auto" size="20" data-bind="value: settings.plugins.OctoWebhook.imgur_config.album_id">
+                <span class="octowebhook_label">Imgur Album ID</span>
+                <input type="text" id="octowebhook_imgur_album_id" class="octowebhook_width_auto" size="20" data-bind="value: settings.plugins.OctoWebhook.imgur_config.album_id">
             </div>
 	    <small class="muted">
                 Optional. If left blank, images will be uploaded into the 'Anomyous' Imgur album which means your uploads will not be associated with any of your albums.
@@ -249,7 +249,7 @@
                 <br/>
                 Example album URL:
                 <br/>
-                https://imgur.com/a/<strong><span class="octoslack_highlight">abc123</span></strong>
+                https://imgur.com/a/<strong><span class="octowebhook_highlight">abc123</span></strong>
                 <br/>
                 <br/>
                 Optionally you can also just paste the entire album URL into the field above and the plugin will extract what it needs automatically
@@ -257,61 +257,61 @@
 		NOTE: If you see 'You are not the owner of album xyz' error messages, please confirm you have properly configured the refresh_token above after approving access to your Imgur application
             </small>
         </div>
-        <div id="octolack_s3_group" class="octoslack_hidden">
+        <div id="octolack_s3_group" class="octowebhook_hidden">
             <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">AWS Access Key</span>
-                <input type="text" class="octoslack_width_auto" size="30" data-bind="value: settings.plugins.OctoWebhook.s3_config.AWSAccessKey">
+                <span class="octowebhook_label">AWS Access Key</span>
+                <input type="text" class="octowebhook_width_auto" size="30" data-bind="value: settings.plugins.OctoWebhook.s3_config.AWSAccessKey">
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">AWS Secret Key</span>
-                <input type="text" class="octoslack_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.s3_config.AWSsecretKey">
+                <span class="octowebhook_label">AWS Secret Key</span>
+                <input type="text" class="octowebhook_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.s3_config.AWSsecretKey">
             </div>
 	    <small class="muted">AWS Access Keys can be generated via My Security Credentials --&gt; Access Keys</small>
 	    <br/>
 	    <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">AWS S3 Bucket</span>
-                <input type="text" name="octoslack_s3_bucket" id="octoslack_s3_bucket" class="octoslack_width_auto" size="20" data-bind="value: settings.plugins.OctoWebhook.s3_config.s3Bucket">
+                <span class="octowebhook_label">AWS S3 Bucket</span>
+                <input type="text" name="octowebhook_s3_bucket" id="octowebhook_s3_bucket" class="octowebhook_width_auto" size="20" data-bind="value: settings.plugins.OctoWebhook.s3_config.s3Bucket">
             </div>
 	    <small class="muted">The S3 bucket where snapshots should be stored</small>
 	    <br/>
 	    <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">AWS S3 Retention</span>
-                <input type="number" id="octoslack_s3_retention" step="any" min="1" class="input-mini text-right" data-bind="value: settings.plugins.OctoWebhook.s3_config.file_expire_days">
-                <span class="octoslack_valign">days</span>
+                <span class="octowebhook_label">AWS S3 Retention</span>
+                <input type="number" id="octowebhook_s3_retention" step="any" min="1" class="input-mini text-right" data-bind="value: settings.plugins.OctoWebhook.s3_config.file_expire_days">
+                <span class="octowebhook_valign">days</span>
 	        <br/>
 	        <small class="muted">How long should AWS keep uploaded snapshots before they are automatically delted</small>
             </div>
         </div>
-        <div id="octolack_minio_group" class="octoslack_hidden">
+        <div id="octolack_minio_group" class="octowebhook_hidden">
             <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Endpoint</span>
-                <input type="text" class="octoslack_width_auto" size="30" data-bind="value: settings.plugins.OctoWebhook.minio_config.Endpoint">
+                <span class="octowebhook_label">Endpoint</span>
+                <input type="text" class="octowebhook_width_auto" size="30" data-bind="value: settings.plugins.OctoWebhook.minio_config.Endpoint">
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Access Key</span>
-                <input type="text" class="octoslack_width_auto" size="30" data-bind="value: settings.plugins.OctoWebhook.minio_config.AccessKey">
+                <span class="octowebhook_label">Access Key</span>
+                <input type="text" class="octowebhook_width_auto" size="30" data-bind="value: settings.plugins.OctoWebhook.minio_config.AccessKey">
             </div>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Secret Key</span>
-                <input type="text" class="octoslack_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.minio_config.SecretKey">
+                <span class="octowebhook_label">Secret Key</span>
+                <input type="text" class="octowebhook_width_auto" size="60" data-bind="value: settings.plugins.OctoWebhook.minio_config.SecretKey">
             </div>
 	    <small class="muted">See minio.io docs how to configure your credentials</small>
 	    <br/>
 	    <br/>
             <div class="octoprint_config_row">
-                <span class="octoslack_label">Minio/S3 Bucket</span>
-                <input type="text" name="octoslack_minio_bucket" id="octoslack_minio_bucket" class="octoslack_width_auto" size="20" data-bind="value: settings.plugins.OctoWebhook.minio_config.Bucket">
+                <span class="octowebhook_label">Minio/S3 Bucket</span>
+                <input type="text" name="octowebhook_minio_bucket" id="octowebhook_minio_bucket" class="octowebhook_width_auto" size="20" data-bind="value: settings.plugins.OctoWebhook.minio_config.Bucket">
             </div>
 	    <small class="muted">The Minio/S3 bucket where snapshots should be stored</small>
 	    <br/>
 	    <br/>
             <div class="octoprint_config_row">
-                <input type="checkbox" class="octoslack_valign" id="octoslack_minio_secure" data-bind="checked: settings.plugins.OctoWebhook.minio_config.secure">
-                <div class="octoslack_label octoslack_action_label" onclick="$('#octoslack_minio_secure').trigger('click')">Secure Connection</div>
+                <input type="checkbox" class="octowebhook_valign" id="octowebhook_minio_secure" data-bind="checked: settings.plugins.OctoWebhook.minio_config.secure">
+                <div class="octowebhook_label octowebhook_action_label" onclick="$('#octowebhook_minio_secure').trigger('click')">Secure Connection</div>
             </div>
         </div>
 	<br/>
@@ -323,14 +323,14 @@
 	</small>
 	<br/>
 	<br/>
-	<input type="hidden" id="octoslack_snapshot_urls_hidden" data-bind="value: settings.plugins.OctoWebhook.additional_snapshot_urls">
-        <div id="octoslack_snapshot_urls_container" class="octoslack_hidden">
+	<input type="hidden" id="octowebhook_snapshot_urls_hidden" data-bind="value: settings.plugins.OctoWebhook.additional_snapshot_urls">
+        <div id="octowebhook_snapshot_urls_container" class="octowebhook_hidden">
         </div>
         <h3>Snapshot layout</h3>
             <div class="octoprint_config_row">
 	        <small class="muted">When utilizing multiple snapshots/cameras, the OctoPrint configured snapshot will be included first followed by the user configured snapshots in the order they have been configured above</small>
 	        <br/>
-	        <select data-bind="value: settings.plugins.OctoWebhook.snapshot_arrangement" class="octoslack_select">
+	        <select data-bind="value: settings.plugins.OctoWebhook.snapshot_arrangement" class="octowebhook_select">
 		    <option value="HORIZONTAL">Horizontal</option>
 		    <option value="VERTICAL">Vertical</option>
 		    <option value="GRID">Grid</option>
@@ -340,10 +340,10 @@
 	        <br/>
 		<table>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">1</td>
-		        <td class="octoslack_small_grid_cell">2</td>
-		        <td class="octoslack_small_grid_cell">3</td>
-		        <td class="octoslack_small_grid_cell">4</td>
+		        <td class="octowebhook_small_grid_cell">1</td>
+		        <td class="octowebhook_small_grid_cell">2</td>
+		        <td class="octowebhook_small_grid_cell">3</td>
+		        <td class="octowebhook_small_grid_cell">4</td>
 		    </tr>
 		</table>
 		</small>
@@ -351,16 +351,16 @@
 	        <br/>
 		<table>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">1</td>
+		        <td class="octowebhook_small_grid_cell">1</td>
 		    </tr>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">2</td>
+		        <td class="octowebhook_small_grid_cell">2</td>
 		    </tr>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">3</td>
+		        <td class="octowebhook_small_grid_cell">3</td>
 		    </tr>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">4</td>
+		        <td class="octowebhook_small_grid_cell">4</td>
 		    </tr>
 		</table>
 		</small>
@@ -368,12 +368,12 @@
 	        <br/>
 		<table>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">1</td>
-		        <td class="octoslack_small_grid_cell">2</td>
+		        <td class="octowebhook_small_grid_cell">1</td>
+		        <td class="octowebhook_small_grid_cell">2</td>
 		    </tr>
 		    <tr>
-		        <td class="octoslack_small_grid_cell">3</td>
-		        <td class="octoslack_small_grid_cell">4</td>
+		        <td class="octowebhook_small_grid_cell">3</td>
+		        <td class="octowebhook_small_grid_cell">4</td>
 		    </tr>
 		</table>
 		</small>
@@ -381,12 +381,12 @@
     </div>
     <br/>
     <h2>OctoPrint Events</h2>
-    <div class="octoslack_config_group">
+    <div class="octowebhook_config_group">
         <div class="octoprint_config_row">
 	    <small class="muted">
 		The following variables are available for use in your custom messages
 		<br/>
-		<p class="octoslack_indented">
+		<p class="octowebhook_indented">
 			<br/>
 			<strong>{print_name}</strong> - The name of the current print
 			<br/>
@@ -404,17 +404,17 @@
                 When <strong>Channel(s) override</strong> is left blank, enabled events will sent to the default Channel(s) configured above
 	    </small>
         </div>
-        <div id="octoslack_events_container" class="octoslack_hidden">
+        <div id="octowebhook_events_container" class="octowebhook_hidden">
 	</div>
     </div>
     <br/>
     <h2>G-code Events</h2>
-    <div class="octoslack_config_group">
+    <div class="octowebhook_config_group">
         <div class="octoprint_config_row">
 	    <small class="muted">
 		The following variables are available for use in your custom messages
 		<br/>
-		<p class="octoslack_indented">
+		<p class="octowebhook_indented">
 			<br/>
 			<strong>{print_name}</strong> - The name of the current print
 			<br/>
@@ -434,9 +434,9 @@
                 When <strong>Channel(s) override</strong> is left blank, enabled events will sent to the default Channel(s) configured above
 	    </small>
         </div>
-	<input type="hidden" id="octoslack_gcode_events_hidden" data-bind="value: settings.plugins.OctoWebhook.gcode_events">
-        <div id="octoslack_gcode_events_container"></div>
+	<input type="hidden" id="octowebhook_gcode_events_hidden" data-bind="value: settings.plugins.OctoWebhook.gcode_events">
+        <div id="octowebhook_gcode_events_container"></div>
         <br/>
-        <div class="octoslack_align_right" style="width: 100%;"><button onclick="Octoslack.addGcodeEventRow(); return false;">Add G-code event</button></div>
+        <div class="octowebhook_align_right" style="width: 100%;"><button onclick="octowebhook.addGcodeEventRow(); return false;">Add G-code event</button></div>
     </div>
 </form>
