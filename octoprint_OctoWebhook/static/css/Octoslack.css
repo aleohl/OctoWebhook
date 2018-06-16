@@ -1,4 +1,4 @@
-.octoslack_config_group {
+.octowebhook_config_group {
     border: 2px solid #a1a1a1;
     padding: 10px 20px 10px 20px;
     margin-right: 10px;
@@ -10,42 +10,42 @@
     padding-bottom: 5px;
     vertical-align: middle;
 }
-.octoslack_label {
+.octowebhook_label {
     float: left;
     width: 160px;
     padding-right: 5px;
     display: inline;
 }
-.octoslack_visible {
+.octowebhook_visible {
     display: block;
 }
-.octoslack_hidden {
+.octowebhook_hidden {
     display: none;
 }
-.octoslack_valign {
+.octowebhook_valign {
     vertical-align: middle;
 }
-.octoslack_align_right {
+.octowebhook_align_right {
     text-align: right;
 }
-.octoslack_width_auto {
+.octowebhook_width_auto {
     width: auto;
 }
-.octoslack_action_label {
+.octowebhook_action_label {
     cursor: pointer;
 }
-.octoslack_select {
+.octowebhook_select {
     width: 150px;
 }
-.octoslack_indented {
+.octowebhook_indented {
     margin-left: 40px;
 }
-.octoslack_small_grid_cell {
+.octowebhook_small_grid_cell {
     border: 1px solid #999;
     padding-left: 6px;
     padding-right: 6px;
     text-align: center;
 }
-.octoslack_highlight {
+.octowebhook_highlight {
     background-color: #d7d4f0;
 }
