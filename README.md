@@ -1,5 +1,8 @@
-# Octoslack #
-An OctoPrint plugin for monitoring your printer and prints via Slack or Mattermost
+# OctoWebhook #
+An OctoPrint plugin for monitoring your printer and prints via Webhook
+
+# Based on #
+[OctoSlack](https://github.com/fraschetti/Octoslack) by [Chris Fraschetti](https://github.com/fraschetti)
 
 # Features #
  - Support for both Slack and Mattermost
@@ -14,7 +17,7 @@ An OctoPrint plugin for monitoring your printer and prints via Slack or Mattermo
  - Optional inclusion of printer snapshot images with each message
      - Support for snapshot hosting on either Amazon S3 or Imgur (with album support)
  - Support for additional snapshot images from IP cameras
- 
+
  # Supported Events #
  - Print started
  - Print failed
@@ -39,7 +42,7 @@ An OctoPrint plugin for monitoring your printer and prints via Slack or Mattermo
 
 # Manual installation steps #
 
-    pip install "https://github.com/fraschetti/Octoslack/archive/master.zip"
+    pip install "https://github.com/aleohl/OctoWebhook/archive/master.zip"
 
 # Examples #
 

@@ -33,7 +33,7 @@ import subprocess
 import copy
 
 
-class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
+class OctoWebhookPlugin(octoprint.plugin.SettingsPlugin,
                       octoprint.plugin.AssetPlugin,
                       octoprint.plugin.StartupPlugin,
                       octoprint.plugin.ShutdownPlugin,
@@ -425,18 +425,18 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 		# Plugin here. See https://github.com/foosel/OctoPrint/wiki/Plugin:-Software-Update
 		# for details.
 		return dict(
-			Octoslack=dict(
-				displayName="Octoslack",
+			OctoWebhook=dict(
+				displayName="OctoWebhook",
 				displayVersion=self._plugin_version,
 
 				# version check: github repository
 				type="github_release",
-				user="fraschetti",
-				repo="Octoslack",
+				user="aleohl",
+				repo="OctoWebhook",
 				current=self._plugin_version,
 
 				# update method: pip
-				pip="https://github.com/fraschetti/Octoslack/archive/{target_version}.zip"
+				pip="https://github.com/aleohl/OctoWebhook/archive/{target_version}.zip"
 			)
 		)
 
@@ -470,7 +470,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				self.handle_event("Progress", None, {"progress":progress}, False, None)
 		except Exception as e:
 			self._logger.exception("Error processing progress event, Error: " + str(e.message))
-		
+
 
 	##~~ EventPlugin mixin
 
@@ -491,7 +491,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 	def update_progress_timer(self):
 		restart = False
 
-		new_interval = int(self._settings.get(['supported_events'], merged=True).get('Progress').get('IntervalTime'))	
+		new_interval = int(self._settings.get(['supported_events'], merged=True).get('Progress').get('IntervalTime'))
 		if self.progress_timer == None and new_interval > 0:
 			restart = True
 		else:
@@ -505,7 +505,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 		if restart and new_interval > 0:
 			self.stop_progress_timer()
 
-			
+
 			self.start_progress_timer()
 
 
@@ -564,8 +564,8 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				if self.process_zheight_change(payload):
  					self.handle_event("Progress", None, payload, False, None)
 				return
-				
-					
+
+
 			supported_events = self._settings.get(['supported_events'], merged=True)
 			if supported_events == None or not event in supported_events:
 				return
@@ -591,7 +591,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			self.process_slack_event(event, event_settings, channel_override, payload)
 		except Exception as e:
 			self._logger.exception("Error processing event: " + event + ", Error: " + str(e.message))
-	
+
 	def process_slack_event(self, event, event_settings, channel_override, event_payload):
 		fallback = ""
 		pretext = ""
@@ -609,7 +609,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 		reportMovieStatus = False
 		reportFinalPrintTime = False
 		includeSupportedCommands = False
-	
+
 		if (channel_override == None or len(channel_override.strip()) == 0) and 'ChannelOverride' in event_settings:
 			channel_override = event_settings['ChannelOverride']
 		if 'Fallback' in event_settings:
@@ -659,7 +659,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 		z_height_str = ""
 		if not z_height == None and not z_height == 'None':
 			z_height_str = ", Nozzle Height: " + "{0:.2f}".format(z_height) + "mm"
-			
+
 		replacement_params['{current_z}'] = z_height_str
 
 
@@ -673,7 +673,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				print_origin = "SD Card"
 			elif print_origin == None:
 				print_origin = "N/A"
-			
+
 			file_bytes = job_state['file']['size']
 			if file_bytes == None:
 				file_bytes = 0
@@ -711,13 +711,13 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			pct_complete = str(int(pct_complete)) + "%"
 		if not pct_complete == None:
 			replacement_params['{pct_complete}'] = pct_complete
-		
+
 		elapsed = progress_state['printTime']
 		time_left = progress_state['printTimeLeft']
 
 		elapsed_str = self.format_duration(elapsed)
 		time_left_str = self.format_duration(time_left)
-		
+
 		if not elapsed == None:
 			replacement_params['{elapsed_time}'] = elapsed_str
 		if not time_left == None:
@@ -730,7 +730,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 		##Is rendered as a footer so it's safe to always include this
 		if reportPrinterState:
 			printer_temps = self._printer.get_current_temperatures()
-			
+
 			temp_str = ""
 			if not printer_temps == None and 'bed' in printer_temps:
 				temp_str = ""
@@ -741,7 +741,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 						nozzle_name = "Nozzle"
 						if len(printer_temps) > 2:
 							nozzle_name += key[4:]
-						
+
 						temp_str += ", " + nozzle_name + ": " + str(printer_temps[key]['actual']) + unichr(176) + "C/" + str(printer_temps[key]['target']) + unichr(176) + "C"
 
 			printer_text = printer_state['text']
@@ -774,7 +774,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 		if event == "PrintDone" and 'time' in event_payload:
 			final_time = self.format_duration(event_payload['time'])
 			replacement_params['{elapsed_time}'] = final_time
-			
+
 		if reportFinalPrintTime:
 			text_arr.append(self.bold_text() + "Final print time" + self.bold_text() + " " + final_time)
 
@@ -834,7 +834,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 		t = threading.Thread(target=self.send_slack_message, args=(event, channel_override, fallback, pretext, title, text, color, fields, footer, includeSnapshot))
 		t.start()
-				
+
 	def start_rtm_client(self):
 		self.stop_rtm_client()
 
@@ -912,7 +912,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			else:
 				self._logger.error("Failed to connect via Slack RTM API")
 
-		
+
 			self._logger.debug("Finished Slack RTM wait loop")
 		except Exception as e:
 			self._logger.exception("Error in rtm loop, Error: " + str(e.message))
@@ -966,7 +966,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			self._logger.debug("Slack RTM - help command")
  			self.handle_event("Help", channel, {}, True, None)
 			reaction = positive_reaction
-			
+
 		elif command == "stop":
 			self._logger.debug("Slack RTM - stop command")
 			if self._printer.is_printing():
@@ -1031,7 +1031,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				return
 
 			slackAPIConnection = Slacker(slackAPIToken)
-	
+
 			self._logger.debug("Sending Slack RTM reaction - Channel: " + channel + ", Timestamp: " + timestamp + ", Reaction: " + reaction + ", Remove: " + str(remove))
 
 			if remove:
@@ -1076,10 +1076,10 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 		total_hours = int(total_seconds / 3600)
 		total_seconds -= (total_hours * 3600)
-		
+
 		total_minutes = int(total_seconds / 60)
 		total_seconds = int(total_seconds - (total_minutes * 60))
-		
+
 		time_str = ""
 
 		if total_days > 0:
@@ -1190,7 +1190,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			elif len(text) > 0:
 				text += "\n"
 
-			text += hosted_url	
+			text += hosted_url
 
 		if not fields == None:
 			attachment['fields'] = fields
@@ -1205,7 +1205,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 		if not title == None and len(title) > 0:
 			attachment['title'] = title
-		
+
 		if not color == None and len(color) > 0:
 			attachment['color'] = color
 
@@ -1249,9 +1249,9 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			if not slackAPIToken == None and len(slackAPIToken) > 0:
 				try:
 					slackAPIConnection = Slacker(slackAPIToken)
-	
-					apiRsp = slackAPIConnection.chat.post_message(channel, 
-						text='', 
+
+					apiRsp = slackAPIConnection.chat.post_message(channel,
+						text='',
 						username=slack_username,
 						as_user=slack_as_user,
 						attachments=attachments_json,
@@ -1264,7 +1264,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			elif not slackWebHookUrl == None and len(slackWebHookUrl) > 0:
 				slack_msg = {}
 				slack_msg['channel'] = channel
-	
+
 				if not slack_as_user == None:
 					slack_msg['as_user'] = slack_as_user
 				if not slack_icon_url == None and len(slack_icon_url) > 0:
@@ -1276,7 +1276,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 				slack_msg['attachments'] = attachments
 				self._logger.debug("Slack WebHook postMessage json: " + json.dumps(slack_msg))
-	
+
 				try:
 					webHook = IncomingWebhook(slackWebHookUrl)
 					webHookRsp = webHook.post(slack_msg)
@@ -1295,10 +1295,10 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			return None, None
 
 		local_file_path, snapshot_errors = self.retrieve_snapshot_images()
-		
+
 		if snapshot_errors == None:
 			snapshot_errors = []
-	
+
 		if local_file_path:
 			try:
 				snapshot_upload_method = self._settings.get(['snapshot_upload_method'], merged=True)
@@ -1316,7 +1316,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 						fileExpireDays = int(s3_config['file_expire_days'])
 
 						s3_expiration = timedelta(days=fileExpireDays)
-					
+
 						imgData = open(local_file_path,'rb')
 
 						uploadFilename = "Snapshot_" + str(uuid.uuid1()).replace("-", "") + ".png"
@@ -1409,7 +1409,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 						imgur_upload_elapsed = time.time() - imgur_upload_start
 						self._logger.debug("Uploaded snapshot to Imgur in " + str(round(imgur_upload_elapsed, 2)) + " seconds")
-					
+
 						imgurUrl = imgurUploadRsp['link']
 						return imgurUrl, snapshot_errors
 					except ImgurClientError as ie:
@@ -1451,7 +1451,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				url = url.strip()
 				if len(url) > 0:
 					urls.append((urllib2.unquote(url), False, False, False))
-		
+
 		self._logger.debug("Snapshot URLs: " + str(urls))
 
 		threads = []
@@ -1509,7 +1509,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 		try:
 			download_start = time.time()
-			
+
 			basic_auth_user = None
 			basic_auth_pwd = None
 
@@ -1520,7 +1520,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 				second_split = first_split[0].split("//")
 				new_url = second_split[0] + "//" + first_split[1]
-				
+
 				auth_split = second_split[1].split(":")
 				if len(auth_split) > 0:
 					basic_auth_user = auth_split[0]
@@ -1532,7 +1532,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				## We have credentials
 				if not basic_auth_user == None:
 					url = new_url
-				
+
 
 			imgReq = urllib2.Request(url)
 
@@ -1545,7 +1545,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			temp_fd, temp_filename = mkstemp()
 			temp_file = open(temp_filename, "wb")
 			temp_file.write(imgRsp.read())
-			
+
 			imgByteCount = temp_file.tell()
 
 			temp_file.close()
@@ -1582,7 +1582,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 				imgData.close()
 			if not temp_fd == None:
 				os.close(temp_fd)
-	
+
 	def combine_images(self, local_paths):
 
 		temp_fd = None
@@ -1602,7 +1602,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 			image_count = len(images)
 			if images == 0:
 				return None, None
-			
+
 			widths, heights = zip(*(i.size for i in images))
 
 			total_width = sum(widths)
@@ -1706,7 +1706,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 			x_offset = image_spacer
 			y_offset = image_spacer
-	
+
 			if arrangement == "VERTICAL" or arrangement == "HORIZONTAL":
 				for im in images:
 					if arrangement == "VERTICAL":
@@ -1744,7 +1744,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 						y_adjust = (row_height - height) / 2
 
 					new_im.paste(im, (x_offset + x_adjust, y_offset + y_adjust))
-					
+
 					col_idx += 1
 					x_offset += col_width
 					x_offset += image_spacer
@@ -1769,7 +1769,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 			for im in images:
 				im.close()
-			
+
 			for tmpFile in local_paths:
 				os.remove(tmpFile)
 
@@ -1802,7 +1802,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 					continue;
 
 				new_gcode_events.append(gcode_event)
-				
+
 			self.active_gcode_events = new_gcode_events
 
 			self._logger.debug("Active G-code events: " + json.dumps(self.active_gcode_events))
@@ -1820,7 +1820,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 				if trigger_gcode == None or len(trigger_gcode.strip()) == 0:
 					continue
-				
+
 				trigger_gcode = trigger_gcode.strip()
 
 				if cmd.startswith(trigger_gcode):
@@ -1837,7 +1837,7 @@ class OctoslackPlugin(octoprint.plugin.SettingsPlugin,
 
 def __plugin_load__():
 	global __plugin_implementation__
-	__plugin_implementation__ = OctoslackPlugin()
+	__plugin_implementation__ = OctoWebhookPlugin()
 
 	global __plugin_hooks__
 	__plugin_hooks__ = {

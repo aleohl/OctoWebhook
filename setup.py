@@ -4,30 +4,30 @@
 ### Do not forget to adjust the following variables to your own plugin.
 
 # The plugin's identifier, has to be unique
-plugin_identifier = "Octoslack"
+plugin_identifier = "OctoWebhook"
 
 # The plugin's python package, should be "octoprint_<plugin identifier>", has to be unique
-plugin_package = "octoprint_Octoslack"
+plugin_package = "octoprint_OctoWebhook"
 
 # The plugin's human readable name. Can be overwritten within OctoPrint's internal data via __plugin_name__ in the
 # plugin module
-plugin_name = "Octoslack"
+plugin_name = "OctoWebhook"
 
 # The plugin's version. Can be overwritten within OctoPrint's internal data via __plugin_version__ in the plugin module
-plugin_version = "1.5.0"
+plugin_version = "1.0"
 
 # The plugin's description. Can be overwritten within OctoPrint's internal data via __plugin_description__ in the plugin
 # module
-plugin_description = "Slack integration plugin for Octoprint"
+plugin_description = "Webhook plugin for Octoprint based on OctoSlack"
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "Chris Fraschetti"
+plugin_author = "Alexander Ohlén"
 
 # The plugin's author's mail address.
-plugin_author_email = "fraschetti.dev@gmail.com"
+plugin_author_email = "alexander@waixan.se"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/fraschetti/Octoslack"
+plugin_url = "https://aleohl.se"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "MIT"
